@@ -1,3 +1,30 @@
+/* Animation keyframes */
+@keyframes floating {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100vh);
+      opacity: 0;
+    }
+  }
+  
+  /* Styles for the heart shape */
+  .heart {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background-color: red; /* Thay đổi màu sắc cho hình trái tim */
+    clip-path: polygon(
+      50% 15%, 60% 30%, 90% 40%, 100% 60%, 80% 80%,
+      50% 100%, 20% 80%, 0 60%, 10% 40%, 40% 30%
+    );
+    animation: floating 6s infinite ease-in-out; /* Điều chỉnh tốc độ chuyển động */
+    z-index: 9999;
+  }
+  
+
 .H1_1 {
     color: rgb(38,124,185);
     margin-right: -10px;
