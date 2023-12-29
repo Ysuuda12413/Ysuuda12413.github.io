@@ -1,8 +1,29 @@
-h1 {
+.H1_1 {
     color: rgb(38,124,185);
 }
 
+h2 {
+    padding: 24px 0;
+    margin-bottom: 2px ;
+}
+
 .login_form{
+    display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    padding: 20;
+    background-color: rgba(165, 165, 165, 0.692);
+    width: 250px;
+    height: 140px;
+    border-radius: 24px;
+}
+
+.login_form button,
+.login_form input {
+    margin-top: 2px;
+}
+
+.H2_1 {
+    margin-top: -15px;
 }
