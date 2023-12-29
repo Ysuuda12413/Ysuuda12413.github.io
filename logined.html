@@ -6,11 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const loginStatus = urlParams.get('login_status');
-
-        if (loginStatus !== '1') {
-            window.location.href = 'https://ysuuda12413.github.io/';
+            const loginStatus = localStorage.getItem('login_status');
+            if (loginStatus !== '1') {
+                window.location.href = 'https://ysuuda12413.github.io/';
             }
         });
     </script>
