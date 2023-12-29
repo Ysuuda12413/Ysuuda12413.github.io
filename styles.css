@@ -1,4 +1,8 @@
 h1 {
     color: #267CB9;
-    
+}
+
+.login_form{
+    align-items: center;
+    justify-content: center;
 }
