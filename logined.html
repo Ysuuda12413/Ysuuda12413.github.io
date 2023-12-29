@@ -6,10 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
 
-        window.onload = function() {
-    localStorage.setItem('login_status', '0');
-        }
-
+        
         document.addEventListener('DOMContentLoaded', function() {
             const loginStatus = localStorage.getItem('login_status')
             console.log(loginStatus)
@@ -19,6 +16,10 @@
                 window.location.href='https://ysuuda12413.github.io/'
             }
         })
+        window.onload = function() {
+            localStorage.setItem('login_status', '0');
+            loginStatus = localStorage.setItem('login_status')
+        }
     </script>
     <title>Page logined</title>
 </head>
