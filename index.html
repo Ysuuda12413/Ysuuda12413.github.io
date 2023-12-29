@@ -13,11 +13,9 @@
     var password = document.getElementById('password').value;
 
     if (username === 'admin' && password === 'duyundz') {
+      alert("adu xin dc lun")
       localStorage.setItem('login_status', 'true');
       window.location.href = 'https://ysuuda12413.github.io/logined.html';
-    } else if (window.location.href === 'https://ysuuda12413.github.io/logined.html') {
-      window.location.href = 'https://ysuuda12413.github.io/';
-      alert('Chưa đăng nhập');
     } else {
       alert('Login failed =))');
     }
