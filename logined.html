@@ -10,6 +10,11 @@
         //     }
         // });
         var loginStatus = localStorage.getItem('login_status')
+        document.addEventListener('DOMContentLoaded', function() {
+            if (loginStatus != true){
+                window.location.href= 'https://ysuuda12413.github.io/'
+            }
+        })
     </script>
     <title>Page logined</title>
 </head>
