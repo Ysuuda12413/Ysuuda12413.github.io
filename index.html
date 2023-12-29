@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Duy</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    function login() {
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+
+    if (username === 'admin' && password === 'duyundz') {
+      window.location.href = 'https://ysuuda12413.github.io/logined.html';
+    } else if (window.location.href === 'https://ysuuda12413.github.io/logined.html') {
+      window.location.href = 'https://ysuuda12413.github.io/';
+      alert('Chưa đăng nhập');
+    } else {
+      alert('Login failed =))');
+    }
+  }
+  </script>
+</head>
+<body>
+  <h1 class="H1_1">Duy</h1><i class="fa fa-heart-o" aria-hidden="true"></i>
+  <h2>Call me math because I always have a headache because of you</h2>
+  <div class="login_form">
+    <h2 class="H2_1">Form đăng nhập</h2>
+    <input type="text" name="username" id="input.text" placeholder="Enter The Username">
+    <input type="password" name="password" id="input.password" placeholder="Enter The Password">
+    <button onclick="login()">Login</button>
+    <div class="note">Lưu Ý Muốn Biết Username và Password Thì Hỏi Thằng Admin </div>
+  </div>
+</body>
+</html>
