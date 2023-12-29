@@ -7,9 +7,11 @@
   <title>Duy</title>
   <link rel="stylesheet" href="styles.css">
   <script>
-    function login() {
-    var username = document.getElementById('username').value;
-    var password = document.getElementById('password').value;
+    document.addEventListener("DOMContentLoaded", function() {
+  // Mã JavaScript của bạn ở đây
+  function login() {
+    var username = document.getElementById('input.text').value;
+    var password = document.getElementById('input.password').value;
 
     if (username === 'admin' && password === 'duyundz') {
       window.location.href = 'https://ysuuda12413.github.io/logined.html';
@@ -20,6 +22,10 @@
       alert('Login failed =))');
     }
   }
+
+  // Các tác vụ khác của bạn ở đây
+});
+
   </script>
 </head>
 <body>
