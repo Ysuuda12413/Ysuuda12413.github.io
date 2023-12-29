@@ -7,25 +7,19 @@
   <title>Duy</title>
   <link rel="stylesheet" href="styles.css">
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-  // Mã JavaScript của bạn ở đây
-  function login() {
-    var username = document.getElementById('input.text').value;
-    var password = document.getElementById('input.password').value;
+    function login() {
+      var username = document.getElementById('input.text').value;
+      var password = document.getElementById('input.password').value;
 
-    if (username === 'admin' && password === 'duyundz') {
-      window.location.href = 'https://ysuuda12413.github.io/logined.html';
-    } else if (window.location.href === 'https://ysuuda12413.github.io/logined.html') {
-      window.location.href = 'https://ysuuda12413.github.io/';
-      alert('Chưa đăng nhập');
-    } else {
-      alert('Login failed =))');
+      if (username === 'admin' && password === 'duyundz') {
+        window.location.href = 'https://ysuuda12413.github.io/logined.html';
+      } else if (window.location.href === 'https://ysuuda12413.github.io/logined.html') {
+        window.location.href = 'https://ysuuda12413.github.io/';
+        alert('Chưa đăng nhập');
+      } else {
+        alert('Login failed =))');
+      }
     }
-  }
-
-  // Các tác vụ khác của bạn ở đây
-});
-
   </script>
 </head>
 <body>
