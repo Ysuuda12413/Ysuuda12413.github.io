@@ -3,15 +3,62 @@
 <head>
     <title>File Browser</title>
     <style>
+        body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
+
         #fileList {
             list-style-type: none;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
         }
+
+        #fileList li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
+        }
+
+        #fileList li:hover {
+            box-shadow: 1px 1px 10px rgba(0,0,0,0.3);
+        }
+
         .folder {
             color: blue;
             cursor: pointer;
+            position: relative;
         }
+
+        .folder::before {
+            content: '📁';
+            position: absolute;
+            left: -20px;
+            animation: bounce 1s infinite;
+        }
+
         .file {
             color: black;
+        }
+
+        .file::before {
+            content: '📄';
+            position: absolute;
+            left: -20px;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
         }
     </style>
 </head>
@@ -19,15 +66,14 @@
     <ul id="fileList"></ul>
 
     <script>
-        // Địa chỉ URL của API GitHub cho thư mục download trong kho lưu trữ của bạn
         var url = 'https://api.github.com/repos/Ysuuda12413/Ysuuda12413.github.io/contents/download';
 
-        // Hàm để lấy danh sách các tệp và thư mục
-        function fetchFiles() {
-            fetch(url)
+        function fetchFiles(folderUrl) {
+            fetch(folderUrl)
                 .then(response => response.json())
                 .then(data => {
                     var fileList = document.getElementById('fileList');
+                    fileList.innerHTML = ''; // Xóa danh sách tệp hiện tại
 
                     for (var i = 0; i < data.length; i++) {
                         var li = document.createElement('li');
@@ -36,9 +82,10 @@
                         a.innerText = data[i].name;
                         a.target = '_blank';
 
-                        // Kiểm tra nếu là thư mục
                         if (data[i].type === 'dir') {
                             a.classList.add('folder');
+                            a.href = '#'; // Thay đổi href để tránh mở trang mới
+                            a.onclick = function() { fetchFiles(data[i].url); }; // Gọi hàm fetchFiles khi nhấp vào thư mục
                         } else {
                             a.classList.add('file');
                         }
@@ -49,8 +96,7 @@
                 });
         }
 
-        // Gọi hàm khi trang web tải xong
-        window.onload = fetchFiles;
+        window.onload = function() { fetchFiles(url); };
     </script>
 </body>
 </html>
