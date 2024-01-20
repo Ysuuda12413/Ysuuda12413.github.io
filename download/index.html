@@ -3,15 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download Files</title>
-    <link rel="stylesheet" href="./style.css">
+    <title>File Explorer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #file-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .file-item {
+            margin-bottom: 10px;
+        }
+        .file-item a {
+            text-decoration: none;
+            color: #3498db;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <div class="file-list-container">
-        <h1>List of Downloadable Files</h1>
-        <ul id="fileList"></ul>
-    </div>
 
-    <script src="script.js"></script>
+<h1>File Explorer</h1>
+<ul id="file-list"></ul>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const fileList = document.getElementById("file-list");
+
+        function renderFileList(data) {
+            fileList.innerHTML = ""; // Clear previous content
+
+            data.forEach(item => {
+                const listItem = document.createElement("li");
+                listItem.className = "file-item";
+
+                if (item.type === "file") {
+                    listItem.innerHTML = `${item.name} - Size: ${item.size}, Date: ${item.date}`;
+                    listItem.addEventListener("click", () => downloadFile(item.name));
+                } else if (item.type === "folder") {
+                    listItem.innerHTML = `${item.name} (Folder) - Date: ${item.date}`;
+                    listItem.addEventListener("click", () => openFolder(item.name));
+                }
+
+                fileList.appendChild(listItem);
+            });
+        }
+
+        function downloadFile(fileName) {
+            // Simulate file download
+            console.log(`Downloading file: ${fileName}`);
+        }
+
+        function openFolder(folderName) {
+            // Simulate opening folder
+            console.log(`Opening folder: ${folderName}`);
+        }
+
+        // Add event listener for file input change
+        const fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.style.display = "none";
+        fileInput.setAttribute("webkitdirectory", "true");
+        fileInput.setAttribute("directory", "true");
+        document.body.appendChild(fileInput);
+
+        fileInput.addEventListener("change", function (event) {
+            const files = event.target.files;
+            if (files.length > 0) {
+                const fileArray = Array.from(files);
+                const fileData = fileArray.map(file => ({
+                    name: file.name,
+                    type: file.isDirectory ? "folder" : "file",
+                    size: file.size,
+                    date: new Date(file.lastModified).toLocaleDateString(),
+                }));
+                renderFileList(fileData);
+            }
+        });
+
+        // Trigger file input click programmatically
+        function triggerFileInput() {
+            fileInput.click();
+        }
+
+        // Call the function to trigger file input automatically
+        setTimeout(triggerFileInput, 1000); // Simulating automatic file selection after 1 second
+    });
+</script>
+
 </body>
 </html>
