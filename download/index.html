@@ -6,26 +6,51 @@
     <title>File Explorer</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
-        #file-list {
-            list-style-type: none;
+
+        .file-list-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+            list-style: none;
             padding: 0;
         }
-        .file-item {
-            margin-bottom: 10px;
+
+        li {
+            margin: 10px 0;
         }
-        .file-item a {
+
+        a {
+            color: #0366d6;
             text-decoration: none;
-            color: #3498db;
-            cursor: pointer;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-<h1>File Explorer</h1>
-<ul id="file-list"></ul>
+<div class="file-list-container">
+    <h1>File Explorer</h1>
+    <ul id="file-list"></ul>
+</div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -36,11 +61,9 @@
 
             data.forEach(item => {
                 const listItem = document.createElement("li");
-                listItem.className = "file-item";
 
                 if (item.type === "file") {
-                    listItem.innerHTML = `${item.name} - Size: ${item.size}, Date: ${item.date}`;
-                    listItem.addEventListener("click", () => downloadFile(item.name));
+                    listItem.innerHTML = `<a href="#" onclick="downloadFile('${item.name}')">${item.name}</a> - Size: ${item.size}, Date: ${item.date}`;
                 } else if (item.type === "folder") {
                     listItem.innerHTML = `${item.name} (Folder) - Date: ${item.date}`;
                     listItem.addEventListener("click", () => openFolder(item.name));
@@ -51,44 +74,26 @@
         }
 
         function downloadFile(fileName) {
-            // Simulate file download
+            // Implement file download logic here
             console.log(`Downloading file: ${fileName}`);
         }
 
         function openFolder(folderName) {
-            // Simulate opening folder
-            console.log(`Opening folder: ${folderName}`);
+            // Implement logic to get files and folders inside the specified folder
+            // For simplicity, let's use a static array as sample data
+            const folderContents = [
+                { name: "Subfile 1", type: "file", size: "5 KB", date: "2024-01-19" },
+                { name: "Subfolder 1", type: "folder", size: "-", date: "2024-01-19" },
+            ];
+
+            // Merge with the existing file data
+            const newData = [...fileData, ...folderContents];
+
+            renderFileList(newData);
         }
 
-        // Add event listener for file input change
-        const fileInput = document.createElement("input");
-        fileInput.type = "file";
-        fileInput.style.display = "none";
-        fileInput.setAttribute("webkitdirectory", "true");
-        fileInput.setAttribute("directory", "true");
-        document.body.appendChild(fileInput);
-
-        fileInput.addEventListener("change", function (event) {
-            const files = event.target.files;
-            if (files.length > 0) {
-                const fileArray = Array.from(files);
-                const fileData = fileArray.map(file => ({
-                    name: file.name,
-                    type: file.isDirectory ? "folder" : "file",
-                    size: file.size,
-                    date: new Date(file.lastModified).toLocaleDateString(),
-                }));
-                renderFileList(fileData);
-            }
-        });
-
-        // Trigger file input click programmatically
-        function triggerFileInput() {
-            fileInput.click();
-        }
-
-        // Call the function to trigger file input automatically
-        setTimeout(triggerFileInput, 1000); // Simulating automatic file selection after 1 second
+        // Initial rendering of file list
+        renderFileList(fileData);
     });
 </script>
 
