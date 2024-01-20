@@ -90,8 +90,8 @@
 
                         if (data[i].type === 'dir') {
                             a.classList.add('folder');
-                            a.href = '#'; // Thay đổi href để tránh mở trang mới
-                            a.onclick = function() { fetchFiles(data[i].url); }; // Gọi hàm fetchFiles khi nhấp vào thư mục
+                            a.href = 'https://github.com/Ysuuda12413/Ysuuda12413.github.io/tree/main/download/' + data[i].name;
+                            a.onclick = function() { fetchFiles(data[i].url); };
                         } else {
                             a.classList.add('file');
                         }
