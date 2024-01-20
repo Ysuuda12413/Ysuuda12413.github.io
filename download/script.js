@@ -1,33 +1,23 @@
-document.addEventListener("DOMContentLoaded", function () {
-    fetch('/download')
-        .then(response => response.json())
-        .then(data => {
-            const fileList = document.getElementById('fileList');
+document.getElementById('downloadMinefc').addEventListener('click', function() {
+    // Tạo một đối tượng JSZip để đóng gói thư mục Minefc
+    var zip = new JSZip();
+    var minefcFolder = zip.folder('Minefc');
 
-            // Hiển thị từng tệp tin và thư mục trong danh sách
-            data.forEach(item => {
-                const listItem = document.createElement('li');
+    // Thêm các tệp tin và thư mục trong thư mục Minefc vào zip
+    minefcFolder.file('file1.txt', 'Nội dung tệp tin 1.');
+    minefcFolder.file('file2.txt', 'Nội dung tệp tin 2.');
+    // Thêm các tệp tin và thư mục khác nếu cần
 
-                if (item.type === 'file') {
-                    // Nếu là tệp tin
-                    const link = document.createElement('a');
-                    link.href = `/download/${item.name}`;
-                    link.textContent = item.name;
-                    listItem.appendChild(link);
-                } else if (item.type === 'dir') {
-                    // Nếu là thư mục
-                    const folderIcon = document.createElement('span');
-                    folderIcon.textContent = '📁 ';
-                    listItem.appendChild(folderIcon);
+    // Tạo nội dung zip
+    zip.generateAsync({type: 'blob'})
+    .then(function(content) {
+        // Tạo đường dẫn đến tệp zip và kích thước tệp
+        var blob = new Blob([content]);
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'Minefc.zip';
 
-                    const folderLink = document.createElement('a');
-                    folderLink.href = `/download/${item.name}`;
-                    folderLink.textContent = item.name;
-                    listItem.appendChild(folderLink);
-                }
-
-                fileList.appendChild(listItem);
-            });
-        })
-        .catch(error => console.error('Error fetching file list:', error));
+        // Simulate click on the link to trigger the download
+        link.click();
+    });
 });
