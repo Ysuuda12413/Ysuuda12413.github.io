@@ -4,7 +4,8 @@
     <title>File Browser</title>
     <style>
         body {
-        font-family: Arial, sans-serif;
+        font-family: 'Segoe UI', sans-serif;
+        font-weight: 400;
         background-color: #f4f4f4;
         margin: 0;
         padding: 0;
@@ -76,6 +77,11 @@
                     fileList.innerHTML = ''; // Xóa danh sách tệp hiện tại
 
                     for (var i = 0; i < data.length; i++) {
+                        // Bỏ qua file index.html
+                        if (data[i].name === 'index.html') {
+                            continue;
+                        }
+
                         var li = document.createElement('li');
                         var a = document.createElement('a');
                         a.href = data[i].html_url;
