@@ -1,101 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Explorer</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        .file-list-container {
-            max-width: 800px;
-            margin: 50px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            margin: 10px 0;
-        }
-
-        a {
-            color: #0366d6;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <title>Download Files</title>
 </head>
 <body>
+    <h1>Files and Folders in Download Directory</h1>
+    <div id="fileList"></div>
 
-<div class="file-list-container">
-    <h1>File Explorer</h1>
-    <ul id="file-list"></ul>
-</div>
+    <script>
+        // Replace this with the actual path to your 'download' directory
+        var downloadDir = '.';
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const fileList = document.getElementById("file-list");
+        fetch(downloadDir)
+            .then(response => response.text())
+            .then(data => {
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(data, 'text/html');
+                var links = doc.getElementsByTagName('a');
 
-        function renderFileList(data) {
-            fileList.innerHTML = ""; // Clear previous content
-
-            data.forEach(item => {
-                const listItem = document.createElement("li");
-
-                if (item.type === "file") {
-                    listItem.innerHTML = `<a href="#" onclick="downloadFile('${item.name}')">${item.name}</a> - Size: ${item.size}, Date: ${item.date}`;
-                } else if (item.type === "folder") {
-                    listItem.innerHTML = `${item.name} (Folder) - Date: ${item.date}`;
-                    listItem.addEventListener("click", () => openFolder(item.name));
+                var fileList = document.getElementById('fileList');
+                for (var i = 0; i < links.length; i++) {
+                    var link = document.createElement('a');
+                    link.href = downloadDir + links[i].href;
+                    link.textContent = links[i].textContent;
+                    fileList.appendChild(link);
+                    fileList.appendChild(document.createElement('br'));
                 }
-
-                fileList.appendChild(listItem);
             });
-        }
-
-        function downloadFile(fileName) {
-            // Implement file download logic here
-            console.log(`Downloading file: ${fileName}`);
-        }
-
-        function openFolder(folderName) {
-            // Implement logic to get files and folders inside the specified folder
-            // For simplicity, let's use a static array as sample data
-            const folderContents = [
-                { name: "Subfile 1", type: "file", size: "5 KB", date: "2024-01-19" },
-                { name: "Subfolder 1", type: "folder", size: "-", date: "2024-01-19" },
-            ];
-
-            // Merge with the existing file data
-            const newData = [...fileData, ...folderContents];
-
-            renderFileList(newData);
-        }
-
-        // Initial rendering of file list
-        renderFileList(fileData);
-    });
-</script>
-
+    </script>
 </body>
 </html>
