@@ -1,15 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Duyundz's Profile Download</title>
-    <link rel="stylesheet" href="./style.css">
+    <title>File Browser</title>
+    <style>
+        #fileList {
+            list-style-type: none;
+        }
+        .folder {
+            color: blue;
+            cursor: pointer;
+        }
+        .file {
+            color: black;
+        }
+    </style>
 </head>
 <body>
-    <h2>Tải xuống thư mục "Minefc"</h2>
-    <a href="./Minefc/" id="downloadMinefc" class="download-link">Tải xuống Minefc</a>
-    <script src="https://stuk.github.io/jszip/dist/jszip.min.js"></script>
+    <ul id="fileList"></ul>
+
+    <script>
+        // Địa chỉ URL của API GitHub cho thư mục download trong kho lưu trữ của bạn
+        var url = 'https://api.github.com/repos/Ysuuda12413/Ysuuda12413.github.io/contents/download';
+
+        // Hàm để lấy danh sách các tệp và thư mục
+        function fetchFiles() {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    var fileList = document.getElementById('fileList');
+
+                    for (var i = 0; i < data.length; i++) {
+                        var li = document.createElement('li');
+                        var a = document.createElement('a');
+                        a.href = data[i].html_url;
+                        a.innerText = data[i].name;
+                        a.target = '_blank';
+
+                        // Kiểm tra nếu là thư mục
+                        if (data[i].type === 'dir') {
+                            a.classList.add('folder');
+                        } else {
+                            a.classList.add('file');
+                        }
+
+                        li.appendChild(a);
+                        fileList.appendChild(li);
+                    }
+                });
+        }
+
+        // Gọi hàm khi trang web tải xong
+        window.onload = fetchFiles;
+    </script>
 </body>
 </html>
