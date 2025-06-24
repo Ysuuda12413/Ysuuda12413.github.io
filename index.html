@@ -1,36 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>DuyunDz's Profile</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/3dc977214a.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DuyunDz's Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Orbitron:wght@600&display=swap" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/3dc977214a.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Raleway', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(145deg, #0f172a, #121a2e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #tsparticles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .profile-card {
+      background: rgba(27, 27, 39, 0.95);
+      backdrop-filter: blur(16px);
+      border-radius: 20px;
+      box-shadow: 0 0 40px rgba(21, 237, 237, 0.2);
+      padding: 35px 30px;
+      width: 380px;
+      text-align: center;
+      animation: fadeInUp 1.2s ease;
+      border: 2px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .avatar {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      border: 5px solid #15EDED;
+      margin-bottom: 18px;
+      animation: pulse 4s infinite ease-in-out;
+      box-shadow: 0 0 30px #15eded99;
+      transition: transform 0.4s;
+    }
+
+    .avatar:hover {
+      transform: scale(1.07);
+    }
+
+    .name {
+      color: #15EDED;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .role,
+    .place {
+      color: #e2e8f0;
+      font-size: 15px;
+      margin-top: 5px;
+      font-weight: 500;
+    }
+
+    .place i {
+      margin-right: 6px;
+      color: #29abe2;
+    }
+
+    .links {
+      margin: 20px 0;
+    }
+
+    .icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 10px;
+      font-size: 20px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      color: white;
+      transition: transform 0.3s, box-shadow 0.3s;
+      background: linear-gradient(145deg, #1f2937, #374151);
+      box-shadow: 0 0 14px rgba(0, 0, 0, 0.35);
+    }
+
+    .icon:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 12px #15EDED, 0 0 25px #15EDED88;
+    }
+
+    .facebook {
+      background-color: #0866FF;
+    }
+
+    .github {
+      background-color: #1f1f1f;
+    }
+
+    .spotify {
+      margin: 18px 0;
+      border-radius: 12px;
+      width: 100%;
+      height: 80px;
+      border: none;
+    }
+
+    .quote {
+      margin-top: 16px;
+      font-weight: 600;
+      font-size: 15px;
+      color: #ffffff;
+      opacity: 0.95;
+      font-family: 'Orbitron', sans-serif;
+      animation: fadeIn 2s ease-in-out;
+      text-shadow: 0 0 5px #15EDED;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        transform: translateY(40px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.08);
+      }
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="form-profile">
-        <img src="./img/avatar.jpg">
-        <p class="profile-fullname">@DuyHayRaDe</p>
-        <p class="role">A Coderlod and A Student</p>
-        <p class="place">Krong Nang town, Dak Lak</p>
+  <div id="tsparticles"></div>
 
-        <div class="lienlac">
-            <a href="https://www.facebook.com/profile.php?id=61556575490667"><button class="lienlac-fb">
-                <i class="fa-brands fa-facebook"></i>
-            </button></a>
-            <a href="https://github.com/Ysuuda12413"><button>
-                <i class="fa-brands fa-github"></i>
-            </button></a>
-            
-        </div>
+  <div class="profile-card">
+    <img src="./img/avatar.jpg" class="avatar" alt="Avatar" />
+    <h2 class="name">@DuyHayRaDe</h2>
+    <p class="role">A Coderlord and A Student</p>
+    <p class="place"><i class="fa-solid fa-location-dot"></i>Krong Nang, Dak Lak</p>
 
-        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/4tYrygJsBDfANagy0IikQl?utm_source=generator" width="75%" height="150" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-
-        <p class="sologen">I Will ComeBack And Better Than</p>
+    <div class="links">
+      <a href="https://www.facebook.com/profile.php?id=61556575490667" class="icon facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="https://github.com/Ysuuda12413" class="icon github"><i class="fa-brands fa-github"></i></a>
     </div>
+
+    <iframe class="spotify" src="https://open.spotify.com/embed/playlist/4tYrygJsBDfANagy0IikQl?utm_source=generator" allowtransparency="true" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+    <p class="quote">"I Will Come Back And Better Than Ever"</p>
+  </div>
+
+  <script>
+    tsParticles.load("tsparticles", {
+      fullScreen: { enable: true, zIndex: -1 },
+      particles: {
+        number: { value: 60 },
+        color: { value: ["#ffffff", "#15EDED", "#029cf5"] },
+        shape: { type: "circle" },
+        opacity: { value: 0.6 },
+        size: { value: { min: 1, max: 4 } },
+        move: { enable: true, speed: 1.2 },
+        links: { enable: true, distance: 120, color: "#ffffff", opacity: 0.3 }
+      },
+      background: {
+        color: "#0f172a"
+      }
+    });
+  </script>
 </body>
 </html>
