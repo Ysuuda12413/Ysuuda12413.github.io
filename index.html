@@ -15,8 +15,11 @@
       font-family: 'Raleway', sans-serif;
     }
 
+    html, body {
+      height: 100%;
+    }
+
     body {
-      height: 100vh;
       background: linear-gradient(145deg, #0f172a, #121a2e);
       display: flex;
       align-items: center;
@@ -44,6 +47,7 @@
       text-align: center;
       animation: fadeInUp 1.2s ease;
       border: 2px solid rgba(255, 255, 255, 0.08);
+      z-index: 10;
     }
 
     .avatar {
@@ -84,6 +88,9 @@
 
     .links {
       margin: 20px 0;
+      pointer-events: auto;
+      position: relative;
+      z-index: 100;
     }
 
     .icon {
@@ -99,6 +106,7 @@
       transition: transform 0.3s, box-shadow 0.3s;
       background: linear-gradient(145deg, #1f2937, #374151);
       box-shadow: 0 0 14px rgba(0, 0, 0, 0.35);
+      text-decoration: none;
     }
 
     .icon:hover {
@@ -169,14 +177,14 @@
   <div id="tsparticles"></div>
 
   <div class="profile-card">
-    <img src="avatar.jpg" class="avatar" alt="Avatar" />
+    <img src="./avatar.jpg" class="avatar" alt="Avatar" />
     <h2 class="name">@DuyHayRaDe</h2>
     <p class="role">A Coderlord and A Student</p>
     <p class="place"><i class="fa-solid fa-location-dot"></i>Krong Nang, Dak Lak</p>
 
     <div class="links">
-      <a href="https://www.facebook.com/profile.php?id=61556575490667" class="icon facebook"><i class="fa-brands fa-facebook-f"></i></a>
-      <a href="https://github.com/Ysuuda12413" class="icon github"><i class="fa-brands fa-github"></i></a>
+      <a href="https://www.facebook.com/profile.php?id=61556575490667" class="icon facebook" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="https://github.com/Ysuuda12413" class="icon github" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i></a>
     </div>
 
     <iframe class="spotify" src="https://open.spotify.com/embed/playlist/4tYrygJsBDfANagy0IikQl?utm_source=generator" allowtransparency="true" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
