@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DuyunDz Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Add Tailwind dark mode configuration
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .blur-backdrop {
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    
+    /* Update blur effects */
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    }
+
+    .code-block {
+      position: relative;
+      font-family: 'Monaco', 'Consolas', monospace;
+    }
+
+    .code-block .copy-button {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      opacity: 0;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.1) !important;
+      color: inherit !important;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .code-block:hover .copy-button {
+      opacity: 1;
+    }
+
+    .code-block .copy-button:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .copied-toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 8px 16px;
+      background: #43b581;
+      color: white;
+      border-radius: 4px;
+      transform: translateY(100px);
+      transition: transform 0.3s ease;
+    }
+
+    .copied-toast.show {
+      transform: translateY(0);
+    }
+
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .social-icon:hover {
+      transform: translateY(-5px) scale(1.15);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .social-icon.facebook:hover {
+      background: #1877f2;
+      color: white !important;
+    }
+
+    .social-icon.discord:hover {
+      background: #7289da;
+      color: white !important;
+    }
+
+    .social-icon.github:hover {
+      background: #333;
+      color: white !important;
+    }
+
+    /* Add 404 styles */
+    .not-found {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 100;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .not-found.show {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .status-badge {
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .touch-me-btn {
+      position: fixed; /* Change from absolute to fixed */
+      padding: 0.75rem 1.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s ease; /* Faster transition */
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      z-index: 100;
+      user-select: none; /* Prevent text selection */
+      width: 120px;
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+    }
+
+    .touch-me-btn:hover {
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .typing-effect {
+      overflow: hidden;
+      border-right: 2px solid #43b581;
+      white-space: pre;
+      animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #43b581 }
+    }
+
+    .run-button {
+      position: absolute;
+      top: 8px;
+      right: 80px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: rgba(67, 181, 129, 0.2);
+      color: #43b581;
+      transition: all 0.3s ease;
+    }
+
+    .run-button:hover {
+      background: rgba(67, 181, 129, 0.3);
+    }
+
+    .console-output {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.8);
+      color: #43b581;
+      padding: 1rem;
+      font-family: 'Consolas', monospace;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .console-output.show {
+      transform: translateY(0);
+    }
+
+    .console-line {
+      margin: 0.25rem 0;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: slideFadeIn 0.3s ease forwards;
+    }
+
+    @keyframes slideFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .discord-status {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .discord-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .discord-avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .discord-info {
+      flex: 1;
+    }
+
+    .discord-activity {
+      font-size: 0.8rem;
+      color: #b9bbbe;
+      margin-top: 0.25rem;
+    }
+
+    .game-icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 0.25rem;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body class="relative transition-colors bg-gray-900 text-white">
+  <div id="tsparticles" class="fixed inset-0 z-50 pointer-events-none"></div>
+  <div class="flex justify-end p-4 relative z-50">
+    <button id="toggleTheme" class="p-2 rounded-full bg-gray-300 dark:bg-gray-700 text-black dark:text-white transition">🌙</button>
+  </div>
+  <div class="flex flex-col md:flex-row max-w-5xl mx-auto mt-6 glass-effect rounded-xl overflow-hidden relative z-50" data-aos="fade-up">
+    <aside class="p-6 flex flex-col items-center md:w-1/3" data-aos="fade-right" data-aos-delay="200">
+      <img src="https://avatars.githubusercontent.com/u/your-avatar.png" alt="Avatar" class="w-28 h-28 rounded-full mb-4 ring-4 ring-pink-400 transform hover:scale-110 transition duration-500">
+      <h1 class="text-xl font-bold">Phạm Hữu Duy</h1>
+      <p class="text-gray-300">@DuyunDz</p>
+      <div id="discordStatus" class="discord-status">
+        <div class="discord-avatar">
+          <img src="https://cdn.discordapp.com/avatars/1101376716670259210/your-avatar.png" alt="Discord Avatar">
+          <span class="status-dot"></span>
+        </div>
+        <div class="discord-info">
+          <div class="status-text">Checking status...</div>
+          <div class="discord-activity"></div>
+        </div>
+      </div>
+      <p class="mt-2 text-center text-sm">Minecraft client skidder & tool developer</p>
+      <div class="flex space-x-6 mt-4 text-2xl">
+        <a href="https://facebook.com/DuyunDz" class="social-icon facebook hover:text-blue-500">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://discord.com/users/1101376716670259210" class="social-icon discord hover:text-indigo-400">
+          <i class="fab fa-discord"></i>
+        </a>
+        <a href="https://github.com/DuyunDz" class="social-icon github hover:text-gray-700 dark:hover:text-gray-300">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+    </aside>
+    <main class="flex-1 p-6" data-aos="fade-left" data-aos-delay="400">
+      <h2 class="text-2xl font-semibold mb-4">About Me</h2>
+      <div class="code-block">
+        <pre class="bg-gray-200 dark:bg-gray-800 p-4 rounded-lg text-sm overflow-x-auto text-green-700 dark:text-green-200" id="codeContent">
+<span class="text-purple-600">const</span> <span class="text-blue-600">profile</span> = {
+  aliases: ["DuyunDz"],
+  works: ["minecraft client", "scripts", "tools"],
+  location: "Vietnam",
+  interests: ["coding", "modding", "reverse engineering"],
+  contacts: {
+    discord: "1101376716670259210",
+    facebook: "fb.com/DuyunDz"
+  }
+}</pre>
+        <button class="run-button" onclick="runCode()">
+          <i class="fas fa-play mr-1"></i> Run
+        </button>
+        <button class="copy-button" onclick="copyCode()">
+          <i class="far fa-copy mr-1"></i> Copy
+        </button>
+      </div>
+      <p class="mt-6 text-xs text-gray-500 dark:text-gray-400">© 2025 DuyunDz • Built with Tailwind CSS & AOS</p>
+    </main>
+  </div>
+  <!-- Add 404 page -->
+  <div id="notFound" class="not-found justify-center items-center flex-col text-center">
+    <h1 class="text-6xl font-bold mb-4">404</h1>
+    <p class="text-xl mb-8">Page not found</p>
+    <button onclick="window.location.href='/'" class="glass-effect px-6 py-2 rounded-lg hover:scale-105 transition">
+      Go Home
+    </button>
+  </div>
+  <div id="copiedToast" class="copied-toast">
+    Copied to clipboard! 📋
+  </div>
+  <button id="touchMeBtn" class="touch-me-btn">Touch me!</button>
+  <div id="consoleOutput" class="console-output">
+    <div class="console-lines"></div>
+  </div>
+  <script>
+    // Set dark theme as default
+    if (!localStorage.theme) {
+      document.documentElement.classList.add('dark');
+      localStorage.theme = 'dark';
+    }
+    function check404() {
+      const validPaths = ['/', '/index.html'];
+      const currentPath = window.location.pathname;
+      
+      if (!validPaths.includes(currentPath)) {
+        document.getElementById('notFound').classList.add('show');
+        document.body.style.overflow = 'hidden';
+        return true;
+      }
+      return false;
+    }
+
+    // Update Discord status function
+    function updateDiscordStatus() {
+      const statusDot = document.querySelector('.status-dot');
+      const statusText = document.querySelector('.status-text');
+      const activityDiv = document.querySelector('.discord-activity');
+      
+      // Simulate Discord presence data
+      const status = 'online';
+      const activity = {
+        type: 'PLAYING',
+        name: 'Minecraft',
+        details: 'In Game',
+        assets: {
+          large_image: 'minecraft_icon'
+        }
+      };
+      
+      const statusColors = {
+        online: '#43b581',
+        idle: '#faa61a',
+        dnd: '#f04747',
+        offline: '#747f8d'
+      };
+      
+      statusDot.style.backgroundColor = statusColors[status];
+      statusText.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+      
+      if (activity) {
+        activityDiv.innerHTML = `
+          <img src="https://cdn.discordapp.com/app-assets/minecraft_icon.png" class="game-icon">
+          Playing ${activity.name}
+          <div>${activity.details}</div>
+        `;
+      } else {
+        activityDiv.innerHTML = '';
+      }
+    }
+
+    // Update particle configuration for better blur interaction
+    const particleConfig = {
+      particles: {
+        number: { value: 40 }, // Reduced from 80 to 40
+        color: {
+          value: ["#00bfff", "#ff69b4", "#7b68ee"],
+          animation: {
+            enable: true,
+            speed: 10 // Reduced speed
+          }
+        },
+        shape: { type: "circle" },
+        blur: {
+          enable: true,
+          value: 1
+        },
+        opacity: {
+          value: 0.2, // Reduced opacity
+          random: true,
+          anim: {
+            enable: true,
+            speed: 0.5,
+            opacity_min: 0.1,
+            sync: false
+          }
+        },
+        size: {
+          value: 2, // Smaller particles
+          random: true
+        },
+        move: {
+          enable: true,
+          speed: 0.8, // Smoother movement
+          direction: "none",
+          random: true,
+          straight: false,
+          outModes: "bounce",
+          attract: {
+            enable: true,
+            rotateX: 600,
+            rotateY: 1200
+          }
+        },
+        links: {
+          enable: true,
+          distance: 150,
+          color: "#808080",
+          opacity: 0.3,
+          width: 1
+        }
+      },
+      interactivity: {
+        events: {
+          onhover: {
+            enable: true,
+            mode: ["grab"]
+          },
+          onclick: {
+            enable: true,
+            mode: "push"
+          }
+        },
+        modes: {
+          grab: {
+            distance: 200,
+            links: { opacity: 0.3 }
+          },
+          push: {
+            quantity: 2 // Reduced from 4 to 2
+          }
+        }
+      },
+      detectRetina: true
+    };
+
+    // Touch Me button
+    const touchMeBtn = document.getElementById('touchMeBtn');
+    let mouseX = 0, mouseY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+    
+    // Update move button function
+    function moveButton() {
+      const corners = [
+        { x: 20, y: 20, scale: 1 },
+        { x: window.innerWidth - 140, y: 20, scale: 0.8 },
+        { x: 20, y: window.innerHeight - 60, scale: 1.2 },
+        { x: window.innerWidth - 140, y: window.innerHeight - 60, scale: 0.9 }
+      ];
+      
+      const rect = touchMeBtn.getBoundingClientRect();
+      const btnX = rect.left;
+      const btnY = rect.top;
+      
+      const distance = Math.sqrt(
+        Math.pow(mouseX - (btnX + rect.width/2), 2) + 
+        Math.pow(mouseY - (btnY + rect.height/2), 2)
+      );
+      
+      if (distance < 150) {
+        let currentCorner = 0;
+        let minDist = Infinity;
+        
+        corners.forEach((corner, i) => {
+          const d = Math.sqrt(
+            Math.pow(btnX - corner.x, 2) + Math.pow(btnY - corner.y, 2)
+          );
+          if (d < minDist) {
+            minDist = d;
+            currentCorner = i;
+          }
+        });
+        
+        const nextCorner = (currentCorner + 1) % 4;
+        touchMeBtn.style.left = `${corners[nextCorner].x}px`;
+        touchMeBtn.style.top = `${corners[nextCorner].y}px`;
+        touchMeBtn.style.transform = `scale(${corners[nextCorner].scale})`;
+      }
+    }
+
+    // Add typing effect function
+    function runCode() {
+      const codeContent = document.getElementById('codeContent');
+      const console = document.getElementById('consoleOutput');
+      const consoleLines = console.querySelector('.console-lines');
+      const originalText = codeContent.innerHTML;
+      
+      codeContent.textContent = '';
+      codeContent.style.width = '0';
+      codeContent.classList.add('typing-effect');
+      consoleLines.innerHTML = '';
+      console.classList.add('show');
+      
+      const printLine = (text, delay) => {
+        setTimeout(() => {
+          const line = document.createElement('div');
+          line.className = 'console-line';
+          line.textContent = `> ${text}`;
+          consoleLines.appendChild(line);
+        }, delay);
+      };
+      
+      requestAnimationFrame(() => {
+        codeContent.innerHTML = originalText;
+        codeContent.style.width = '100%';
+        
+        printLine('Loading profile data...', 0);
+        printLine('Name: DuyunDz', 500);
+        printLine('Location: Vietnam', 1000);
+        printLine('Interests found: coding, modding, reverse engineering', 1500);
+        printLine('Profile loaded successfully!', 2000);
+        
+        setTimeout(() => {
+          codeContent.classList.remove('typing-effect');
+          setTimeout(() => console.classList.remove('show'), 2000);
+        }, 3500);
+      });
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!check404()) {
+        AOS.init();
+        tsParticles.load("tsparticles", particleConfig);
+        
+        updateDiscordStatus();
+        
+        touchMeBtn.style.left = '20px';
+        touchMeBtn.style.top = '20px';
+        touchMeBtn.style.transform = 'none';
+        
+        setInterval(moveButton, 30);
+        
+        setInterval(() => {
+          const rect = touchMeBtn.getBoundingClientRect();
+          if (rect.top < 0 || rect.left < 0 || 
+              rect.right > window.innerWidth || 
+              rect.bottom > window.innerHeight) {
+            touchMeBtn.style.left = '20px';
+            touchMeBtn.style.top = '20px';
+            touchMeBtn.style.transform = 'none';
+          }
+        }, 2000);
+      }
+    });
+
+    window.addEventListener('popstate', function() {
+      check404();
+    });
+
+    document.getElementById('toggleTheme').addEventListener('click', function() {
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.theme = 'light';
+        this.textContent = '🌙';
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.theme = 'dark';
+        this.textContent = '☀️';
+      }
+
+      const isDark = document.documentElement.classList.contains('dark');
+      const container = tsParticles.domItem(0);
+      
+      if (container) {
+        const newColors = isDark ? ["#ffffff", "#00bfff", "#ff69b4"] : ["#00bfff", "#ff69b4", "#7b68ee"];
+        const newLinksColor = isDark ? "#ffffff" : "#808080";
+        
+        container.options.particles.color.value = newColors;
+        container.options.particles.links.color = newLinksColor;
+        
+        container.refresh();
+      }
+
+      const copyBtn = document.querySelector('.copy-button');
+      copyBtn.style.opacity = '1';
+    });
+
+    function copyCode() {
+      const codeText = document.querySelector('.code-block pre').textContent;
+      navigator.clipboard.writeText(codeText).then(() => {
+        const toast = document.getElementById('copiedToast');
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
