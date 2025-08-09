@@ -61,7 +61,7 @@
       <p class="mt-6 text-xs text-gray-500 dark:text-gray-400">© 2025 DuyunDz • Built with Tailwind CSS & AOS</p>
     </main>
   </div>
-
+  <audio id="background-music" src="./music.mp3" autoplay loop></audio>
   <div id="notFound" class="not-found justify-center items-center flex-col text-center">
     <h1 class="text-6xl font-bold mb-4">404</h1>
     <p class="text-xl mb-8">Page not found</p>
@@ -72,5 +72,14 @@
   <div id="consoleOutput" class="console-output"><div class="console-lines"></div></div>
 
   <script src="./script.js"></script>
+  <script>
+    const audio = document.getElementById('background-music');
+    audio.volume = 0.09;
+    document.body.addEventListener('click', () => {
+      if(audio.paused) {
+        audio.play().catch(() => {});
+      }
+    }, { once: true });
+  </script>
 </body>
 </html>
