@@ -1,11 +1,9 @@
-// Set dark theme as default
 document.documentElement.classList.add('dark');
 localStorage.theme = 'dark';
 
 function check404() {
   const validPaths = ['/', '/index.html'];
-  const currentPath = window.location.pathname;
-  if (!validPaths.includes(currentPath)) {
+  if (!validPaths.includes(window.location.pathname)) {
     document.getElementById('notFound').classList.add('show');
     document.body.style.overflow = 'hidden';
     return true;
@@ -13,34 +11,15 @@ function check404() {
   return false;
 }
 
-// Update Discord status
 function updateDiscordStatus() {
   const statusDot = document.querySelector('.status-dot');
   const statusText = document.querySelector('.status-text');
   const activityDiv = document.querySelector('.discord-activity');
-
-  // Set initial status immediately
-  statusText.textContent = 'Playing Visual Studio Code';
-  activityDiv.innerHTML = '<i class="fa-solid fa-code mr-1"></i> Coding...';
-
-  const status = 'online';
-  const activity = {
-    type: 'PLAYING',
-    name: 'Visual Studio Code',
-    details: 'Coding...',
-    assets: { large_image: 'vscode_icon' }
-  };
-
-  const statusColors = { online: '#43b581', idle: '#faa61a', dnd: '#f04747', offline: '#747f8d' };
-  statusDot.style.backgroundColor = statusColors[status];
-  statusText.textContent = status.charAt(0).toUpperCase() + status.slice(1);
-
-  if (activity) {
-    activityDiv.innerHTML = `<i class="fa-solid fa-code mr-1"></i> ${activity.type} ${activity.name}`;
-  }
+  if (statusText) statusText.textContent = 'Online';
+  if (activityDiv) activityDiv.innerHTML = `<i class="fa-solid fa-code mr-1"></i> PLAYING Visual Studio Code`;
+  if (statusDot) statusDot.style.backgroundColor = '#43b581';
 }
 
-// Particle config
 const particleConfig = {
   particles: {
     number: { value: 40 },
@@ -59,14 +38,11 @@ const particleConfig = {
   detectRetina: true
 };
 
-// Run code typing effect
 function runCode() {
   const consoleOutput = document.getElementById('consoleOutput');
   const consoleLines = consoleOutput.querySelector('.console-lines');
-  
   consoleLines.innerHTML = '';
   consoleOutput.classList.add('show');
-
   const now = new Date();
   const utc7Time = new Intl.DateTimeFormat('en-US', {
     timeZone: 'Asia/Bangkok',
@@ -74,34 +50,28 @@ function runCode() {
     timeStyle: 'long'
   }).format(now);
 
-  const printLine = (text, delay) => {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        const line = document.createElement('div');
-        line.className = 'console-line';
-        line.textContent = `> ${text}`;
-        consoleLines.appendChild(line);
-        consoleOutput.scrollTop = consoleOutput.scrollHeight;
-        resolve();
-      }, delay);
-    });
-  };
+  const printLine = (text, delay) => new Promise(resolve => {
+    setTimeout(() => {
+      const line = document.createElement('div');
+      line.className = 'console-line';
+      line.textContent = `> ${text}`;
+      consoleLines.appendChild(line);
+      consoleOutput.scrollTop = consoleOutput.scrollHeight;
+      resolve();
+    }, delay);
+  });
 
-  async function displayOutput() {
+  (async () => {
     await printLine(`Current time (UTC+7): ${utc7Time}`, 0);
     await printLine('Loading profile data...', 500);
     await printLine('Name: DuyunDz', 800);
     await printLine('Location: Vietnam', 1100);
     await printLine('Interests found: coding, modding, reverse engineering', 1400);
     await printLine('Profile loaded successfully!', 1700);
-
     setTimeout(() => consoleOutput.classList.remove('show'), 3000);
-  }
-
-  displayOutput();
+  })();
 }
 
-// Copy code
 function copyCode() {
   const codeText = document.querySelector('.code-block pre').textContent;
   navigator.clipboard.writeText(codeText).then(() => {
@@ -110,11 +80,11 @@ function copyCode() {
     setTimeout(() => toast.classList.remove('show'), 2000);
   });
 }
+
 document.addEventListener('DOMContentLoaded', () => {
   const codeContent = document.getElementById('codeContent');
   const originalHTML = codeContent.innerHTML;
   const originalText = codeContent.textContent;
-
   const settings = {
     typingDelay: 55,
     deletingDelay: 65,
@@ -122,48 +92,28 @@ document.addEventListener('DOMContentLoaded', () => {
     pauseAfterTyping: 2000,
     pauseAfterDeleting: 500
   };
-
-  function startTypewriterEffect() {
-    typeText(0); // 👉 luôn bắt đầu bằng typing
-  }
-
   function typeText(i) {
-    const currentText = originalText.slice(0, i);
-    codeContent.innerHTML = getHTMLByText(originalHTML, currentText);
+    codeContent.innerHTML = getHTMLByText(originalHTML, originalText.slice(0, i));
     i++;
-
     if (i <= originalText.length) {
-      const currentChar = originalText[i];
-      const delay = (currentChar === ' ' || currentChar === '\n') ? settings.spaceDelay : settings.typingDelay;
-      setTimeout(() => typeText(i), delay);
+      setTimeout(() => typeText(i), (originalText[i] === ' ' || originalText[i] === '\n') ? settings.spaceDelay : settings.typingDelay);
     } else {
-      // Gõ xong → đợi rồi xóa
       setTimeout(() => eraseText(originalText.length), settings.pauseAfterTyping);
     }
   }
-
   function eraseText(i) {
-    const currentText = originalText.slice(0, i);
-    codeContent.innerHTML = getHTMLByText(originalHTML, currentText);
+    codeContent.innerHTML = getHTMLByText(originalHTML, originalText.slice(0, i));
     i--;
-
     if (i >= 0) {
-      const currentChar = originalText[i];
-      const delay = (currentChar === ' ' || currentChar === '\n') ? settings.spaceDelay : settings.deletingDelay;
-      setTimeout(() => eraseText(i), delay);
+      setTimeout(() => eraseText(i), (originalText[i] === ' ' || originalText[i] === '\n') ? settings.spaceDelay : settings.deletingDelay);
     } else {
-      // Xoá xong → đợi rồi gõ lại
       setTimeout(() => typeText(0), settings.pauseAfterDeleting);
     }
   }
-
   function getHTMLByText(fullHTML, currentText) {
     const div = document.createElement('div');
     div.innerHTML = fullHTML;
-
-    let textSoFar = '';
-    let resultHTML = '';
-
+    let textSoFar = '', resultHTML = '';
     function traverse(node) {
       if (node.nodeType === Node.TEXT_NODE) {
         const remaining = currentText.slice(textSoFar.length);
@@ -174,33 +124,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       } else if (node.nodeType === Node.ELEMENT_NODE) {
         resultHTML += `<${node.nodeName.toLowerCase()}`;
-        for (const attr of node.attributes) {
-          resultHTML += ` ${attr.name}="${attr.value}"`;
-        }
+        for (const attr of node.attributes) resultHTML += ` ${attr.name}="${attr.value}"`;
         resultHTML += '>';
-
         for (const child of node.childNodes) {
           if (textSoFar.length >= currentText.length) break;
           traverse(child);
         }
-
         resultHTML += `</${node.nodeName.toLowerCase()}>`;
       }
     }
-
     traverse(div);
     return resultHTML;
   }
-
   function escapeHTML(str) {
-    return str.replace(/&/g, '&amp;')
-              .replace(/</g, '&lt;')
-              .replace(/>/g, '&gt;');
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
-
-  startTypewriterEffect();
+  typeText(0);
 });
-// Init
+
 document.addEventListener('DOMContentLoaded', () => {
   if (!check404()) {
     AOS.init();
@@ -208,25 +149,21 @@ document.addEventListener('DOMContentLoaded', () => {
     updateDiscordStatus();
   }
 });
-
 window.addEventListener('popstate', check404);
 
-// Theme toggle
 document.getElementById('toggleTheme').addEventListener('click', function() {
   const html = document.documentElement;
-  const isDark = html.classList.toggle('dark');  localStorage.theme = isDark ? 'dark' : 'light';
+  const isDark = html.classList.toggle('dark');
+  localStorage.theme = isDark ? 'dark' : 'light';
   this.textContent = isDark ? '☀️' : '🌙';
-
   const container = tsParticles.domItem(0);
   if (container) {
     const darkColors = ["#ffffff", "#00bfff", "#ff69b4"];
     const lightColors = ["#1f2937", "#00bfff", "#ff69b4"];
-    
     container.options.particles.color.value = isDark ? darkColors : lightColors;
     container.options.particles.links.color = isDark ? "#ffffff" : "#1f2937";
     container.refresh();
   }
-
   document.body.style.backgroundColor = isDark ? '#111827' : '#f3f4f6';
   document.body.style.color = isDark ? '#ffffff' : '#111827';
 });

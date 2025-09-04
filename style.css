@@ -1,285 +1,482 @@
 .blur-backdrop {
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-  
-  .glass-effect {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  }
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
 
-  html.dark .glass-effect {
-    background: rgba(31, 41, 55, 0.7);
-  }
+.glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
 
-  html:not(.dark) .glass-effect {
-    background: rgba(229, 231, 235, 0.7);
-  }
-  
-  .code-block {
-    position: relative;
-    font-family: 'Monaco', 'Consolas', monospace;
-    min-height: 200px; /* Add fixed height */
-  }
-  
-  .code-block .copy-button, .run-button {
-    position: absolute;
-    top: 8px;
-    padding: 6px 12px;
-    border-radius: 4px;
-    text-align: center;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-    z-index: 10;
-    width: 85px; /* Equal width for both buttons */
-  }
+html.dark .glass-effect {
+  background: rgba(31, 41, 55, 0.7);
+}
 
-  .code-block .copy-button {
-    right: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    color: inherit;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+html:not(.dark) .glass-effect {
+  background: rgba(229, 231, 235, 0.7);
+}
+
+.code-block {
+  position: relative;
+  font-family: 'Monaco', 'Consolas', monospace;
+  min-height: 160px;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+}
+
+.code-block .copy-button,
+.run-button {
+  position: absolute;
+  top: 8px;
+  border-radius: 6px;
+  font-size: 1rem;
+  z-index: 10;
+  transition: background 0.3s, color 0.3s;
+  width: 80px;
+  height: 36px;
+  text-align: center;
+}
+
+.code-block .copy-button {
+  right: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.code-block .copy-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.run-button {
+  right: 106px;
+  background: rgba(67, 181, 129, 0.2);
+  color: #43b581;
+}
+
+.run-button:hover {
+  background: rgba(67, 181, 129, 0.3);
+}
+
+.copied-toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 18px;
+  background: #43b581;
+  color: #fff;
+  border-radius: 6px;
+  transform: translateY(100px);
+  transition: transform 0.3s;
+  font-size: 1rem;
+}
+
+.copied-toast.show {
+  transform: translateY(0);
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 1.3em;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+html.dark .social-icon {
+  background: rgba(31, 41, 55, 0.7);
+  color: #fff;
+}
+
+html:not(.dark) .social-icon {
+  background: rgba(229, 231, 235, 0.7);
+  color: #000;
+}
+
+.social-icon:hover {
+  transform: translateY(-5px) scale(1.15);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.social-icon.facebook:hover {
+  background: #1877f2;
+  color: white !important;
+}
+
+.social-icon.discord:hover {
+  background: #7289da;
+  color: white !important;
+}
+
+.social-icon.github:hover {
+  background: #333;
+  color: white !important;
+}
+
+.not-found {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #111827 60%, #1f2937 100%);
+  color: #fff;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 100;
+  animation: fadeIn 0.5s;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.not-found.show {
+  display: flex;
+}
+
+.not-found h1 {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 1.2rem;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 8px #000;
+}
+
+.not-found p {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  color: #e5e7eb;
+}
+
+.not-found button {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border: none;
+  font-size: 1.1rem;
+  padding: 0.9rem 2.2rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.not-found button:hover {
+  background: #43b581;
+  color: #fff;
+  transform: scale(1.07);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-  
-  .code-block .copy-button:hover {
-    background: rgba(255, 255, 255, 0.2);
+  to {
+    opacity: 1;
   }
-  
-  .run-button {
-    right: 101px; /* 8px + 85px + 8px */
-    background: rgba(67, 181, 129, 0.2);
-    color: #43b581;
-  }
-  
-  .run-button:hover {
-    background: rgba(67, 181, 129, 0.3);
-  }
-  
-  .copied-toast {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 8px 16px;
-    background: #43b581;
-    color: white;
-    border-radius: 4px;
-    transform: translateY(100px);
-    transition: transform 0.3s ease;
-  }
-  
-  .copied-toast.show {
+}
+
+.status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.touch-me-btn {
+  display: none;
+}
+
+html.dark .touch-me-btn,
+html:not(.dark) .touch-me-btn,
+.touch-me-btn:hover {
+  display: none;
+}
+
+.console-output {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-height: 180px;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.95);
+  color: #43b581;
+  padding: 1rem;
+  font-family: 'Consolas', monospace;
+  transform: translateY(100%);
+  transition: transform 0.3s;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.console-output.show {
+  transform: translateY(0);
+}
+
+.console-line {
+  margin: 0.2rem 0;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: slideFadeIn 0.3s forwards;
+}
+
+@keyframes slideFadeIn {
+  to {
+    opacity: 1;
     transform: translateY(0);
   }
-  
+}
+
+.discord-status {
+  width: 100%;
+  max-width: 320px;
+  margin: 0.5rem auto;
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+}
+
+html.dark .discord-status {
+  background: rgba(31, 41, 55, 0.7);
+}
+
+html:not(.dark) .discord-status {
+  background: rgba(229, 231, 235, 0.7);
+}
+
+.discord-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.discord-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.discord-info {
+  flex: 1;
+  text-align: center;
+}
+
+.discord-activity {
+  font-size: 0.85rem;
+  color: #b9bbbe;
+  margin-top: 0.25rem;
+}
+
+.game-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 0.25rem;
+  vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+  .code-block {
+    font-size: 0.9rem;
+    min-height: 120px;
+  }
+
+  .run-button,
+  .copy-button {
+    font-size: 1rem;
+    width: 80px;
+    padding: 8px 12px;
+  }
+
+  .run-button {
+    right: 92px;
+  }
+
   .social-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    background: rgba(255, 255, 255, 0.1);
+    font-size: 1.1em;
   }
 
-  html.dark .social-icon {
-    background: rgba(31, 41, 55, 0.7);
-    color: #fff;
-  }
-
-  html:not(.dark) .social-icon {
-    background: rgba(229, 231, 235, 0.7);
-    color: #000;
-  }
-  
-  .social-icon:hover {
-    transform: translateY(-5px) scale(1.15);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  }
-  
-  .social-icon.facebook:hover {
-    background: #1877f2;
-    color: white !important;
-  }
-  
-  .social-icon.discord:hover {
-    background: #7289da;
-    color: white !important;
-  }
-  
-  .social-icon.github:hover {
-    background: #333;
-    color: white !important;
-  }
-  
-  .not-found {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    z-index: 100;
-    animation: fadeIn 0.5s ease;
-  }
-  
-  .not-found.show {
-    display: flex;
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  
-  .status-badge {
-    padding: 0.5rem 1rem;
-    border-radius: 9999px;
-    margin-top: 0.5rem;
-    font-size: 0.875rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(255, 255, 255, 0.1);
-  }
-  
-  .status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-  }
-  
-  .touch-me-btn {
-    display: none; /* Add this to hide any existing buttons */
-  }
-
-  html.dark .touch-me-btn,
-  html:not(.dark) .touch-me-btn,
-  .touch-me-btn:hover {
-    display: none;
-  }
-  
-  .console-output {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: auto;
-    max-height: 200px;
-    overflow-y: auto;
-    background: rgba(0, 0, 0, 0.95);
-    color: #43b581;
-    padding: 1rem;
-    font-family: 'Consolas', monospace;
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
-    z-index: 1000;
-    backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  
-  .console-output.show {
-    transform: translateY(0);
-  }
-  
-  .console-line {
-    margin: 0.25rem 0;
-    opacity: 0;
-    transform: translateY(10px);
-    animation: slideFadeIn 0.3s ease forwards;
-  }
-  
-  @keyframes slideFadeIn {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
   .discord-status {
-    width: 100%;
-    max-width: 300px;
-    margin: 0.5rem auto;
-    padding: 0.75rem;
-    display: flex;
+    max-width: 240px;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .code-block {
+    font-size: 0.85rem;
+    min-height: 90px;
+    margin: 0 -0.5rem;
+  }
+
+  .run-button,
+  .copy-button {
+    width: 70px;
+    font-size: 0.95rem;
+    padding: 7px 10px;
+  }
+
+  /* Sửa vị trí để không bị chồng lên nhau */
+  .run-button {
+    right: 90px; /* tăng khoảng cách so với .copy-button */
+  }
+
+  .copy-button {
+    right: 8px;
+  }
+
+  .social-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1em;
+  }
+
+  .discord-status {
+    max-width: 180px;
+    padding: 0.4rem;
+  }
+
+  .glass-effect {
+    margin: 0.5rem;
+  }
+}
+
+/* Mobile portrait */
+@media (max-width: 480px) and (orientation: portrait) {
+  body {
+    font-size: 15px;
+    padding: 0;
+  }
+  .glass-effect {
+    margin: 0.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 16px 0 rgba(31,38,135,0.25);
+  }
+  .code-block {
+    font-size: 0.85rem;
+    min-height: 90px;
+    margin: 0 -0.5rem 1rem -0.5rem;
+    padding: 0.7rem;
+    border-radius: 0.7rem;
+  }
+  .run-button, .copy-button {
+    width: 65px;
+    font-size: 0.95rem;
+    padding: 7px 8px;
+    border-radius: 5px;
+  }
+  .run-button { right: 90px; }
+  .copy-button { right: 8px; }
+  .social-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 1em;
+    margin: 0 2px;
+  }
+  .discord-status {
+    max-width: 160px;
+    padding: 0.3rem;
+    font-size: 0.9em;
+  }
+  .not-found {
+    padding: 0 1rem;
+    font-size: 1.1em;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 0.5rem;
-    margin-top: 0.5rem;
   }
+  .not-found h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  .not-found p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+  .not-found button {
+    font-size: 1rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: 0.7rem;
+  }
+}
 
-  html.dark .discord-status {
-    background: rgba(31, 41, 55, 0.7);
+/* Mobile landscape */
+@media (max-width: 700px) and (orientation: landscape) {
+  body {
+    font-size: 14px;
+    padding: 0;
   }
-
-  html:not(.dark) .discord-status {
-    background: rgba(229, 231, 235, 0.7);
+  .glass-effect {
+    margin: 0.5rem;
+    border-radius: 0.7rem;
+    box-shadow: 0 2px 8px 0 rgba(31,38,135,0.18);
   }
-  
-  .discord-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    position: relative;
-  }
-  
-  .discord-avatar img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .discord-info {
-    flex: 1;
-    text-align: center;
-  }
-  
-  .discord-activity {
+  .code-block {
     font-size: 0.8rem;
-    color: #b9bbbe;
-    margin-top: 0.25rem;
+    min-height: 70px;
+    margin: 0 -0.3rem 1rem -0.3rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
   }
-  
-  .game-icon {
-    width: 16px;
-    height: 16px;
-    margin-right: 0.25rem;
-    vertical-align: middle;
+  .run-button, .copy-button {
+    width: 60px;
+    font-size: 0.9rem;
+    padding: 6px 6px;
+    border-radius: 4px;
   }
-
-  @media (max-width: 768px) {
-    .code-block {
-      font-size: 0.85rem;
-    }
-
-    .run-button, .copy-button {
-      font-size: 0.85rem;
-      min-width: 60px;
-      width: 70px; /* Equal width on mobile */
-    }
-
-    .run-button {
-      right: 86px; /* Adjust spacing for mobile */
-    }
-    
-    .copy-button {
-      width: 70px; /* Equal width on mobile */
-    }
+  .run-button { right: 80px; }
+  .copy-button { right: 8px; }
+  .social-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 0.95em;
+    margin: 0 1px;
   }
-  @media (max-width: 640px) {
-    .code-block {
-      margin: 0 -1rem;
-    }
-
-    .discord-status {
-      max-width: 250px;
-    }
+  .discord-status {
+    max-width: 120px;
+    padding: 0.2rem;
+    font-size: 0.85em;
   }
-  
+  .not-found {
+    padding: 0 0.5rem;
+    font-size: 1em;
+    align-items: center;
+    justify-content: center;
+  }
+  .not-found h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.7rem;
+  }
+  .not-found p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  .not-found button {
+    font-size: 0.95rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 0.5rem;
+  }
+}
+
