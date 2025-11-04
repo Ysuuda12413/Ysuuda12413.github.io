@@ -5,10 +5,11 @@
 
 .glass-effect {
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  will-change: transform;
 }
 
 html.dark .glass-effect {
@@ -100,6 +101,10 @@ html.dark .social-icon {
 html:not(.dark) .social-icon {
   background: rgba(229, 231, 235, 0.7);
   color: #000;
+}
+
+.social-icon {
+  will-change: transform;
 }
 
 .social-icon:hover {
@@ -264,6 +269,24 @@ html:not(.dark) .discord-status {
   background: rgba(229, 231, 235, 0.7);
 }
 
+#lanyardBadge {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  border-radius: 0.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 0.5rem 0;
+}
+
+#lanyardBadge {
+  will-change: transform;
+}
+
+#lanyardBadge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
 .discord-avatar {
   width: 32px;
   height: 32px;
@@ -296,7 +319,20 @@ html:not(.dark) .discord-status {
   vertical-align: middle;
 }
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
 @media (max-width: 768px) {
+  #tsparticles {
+    display: none;
+  }
+  
   .code-block {
     font-size: 0.9rem;
     min-height: 120px;
@@ -322,6 +358,10 @@ html:not(.dark) .discord-status {
   .discord-status {
     max-width: 240px;
     padding: 0.5rem;
+  }
+
+  #lanyardBadge {
+    max-width: 220px;
   }
 }
 
@@ -357,6 +397,10 @@ html:not(.dark) .discord-status {
   .discord-status {
     max-width: 180px;
     padding: 0.4rem;
+  }
+
+  #lanyardBadge {
+    max-width: 200px;
   }
 
   .glass-effect {
@@ -400,6 +444,10 @@ html:not(.dark) .discord-status {
     max-width: 160px;
     padding: 0.3rem;
     font-size: 0.9em;
+  }
+
+  #lanyardBadge {
+    max-width: 180px;
   }
   .not-found {
     padding: 0 1rem;
@@ -458,6 +506,10 @@ html:not(.dark) .discord-status {
     max-width: 120px;
     padding: 0.2rem;
     font-size: 0.85em;
+  }
+
+  #lanyardBadge {
+    max-width: 150px;
   }
   .not-found {
     padding: 0 0.5rem;
