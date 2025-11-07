@@ -47,7 +47,6 @@ html:not(.dark) .glass-effect {
   min-height: clamp(100px, 15vh, 160px);
   margin-bottom: 0.8rem;
   overflow-x: auto;
-  animation: slideInUp 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   font-size: clamp(0.65rem, 1.3vw, 0.85rem);
 }
 
@@ -62,7 +61,6 @@ html:not(.dark) .glass-effect {
     rgba(255,255,255,0) 100%
   );
   background-size: 200% 100%;
-  animation: shimmer 4s infinite ease-in-out;
   padding: clamp(0.6rem, 1.5vw, 0.85rem);
   border-radius: 0.5rem;
   transition: all 0.3s ease;
@@ -114,7 +112,6 @@ html:not(.dark) .glass-effect {
   background: rgba(255, 255, 255, 0.3);
   transform: translateY(-3px) scale(1.05);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-  animation: pulse 0.6s ease-in-out;
 }
 
 .run-button {
@@ -142,7 +139,6 @@ html:not(.dark) .glass-effect {
   background: rgba(67, 181, 129, 0.4);
   transform: translateY(-3px) scale(1.05);
   box-shadow: 0 6px 20px rgba(67, 181, 129, 0.5);
-  animation: pulse 0.6s ease-in-out;
 }
 
 .run-button:hover::after {
@@ -168,7 +164,6 @@ html:not(.dark) .glass-effect {
 .copied-toast.show {
   transform: translateY(0) scale(1);
   opacity: 1;
-  animation: bounce 0.6s ease;
 }
 
 .social-icon {
@@ -213,7 +208,6 @@ html:not(.dark) .social-icon {
 
 .social-icon {
   will-change: transform;
-  animation: iconFloat 3s ease-in-out infinite;
 }
 
 .social-icon:nth-child(1) { animation-delay: 0s; }
@@ -238,8 +232,7 @@ html:not(.dark) .social-icon {
 .social-icon:hover {
   transform: translateY(-12px) scale(1.3) rotate(360deg);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-  animation: heartbeat 0.8s ease-in-out;
-  filter: brightness(1.2);
+  filter: brightness(1.1);
 }
 
 .social-icon:hover::before {
@@ -281,7 +274,6 @@ html:not(.dark) .social-icon {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   z-index: 100;
-  animation: fadeIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55), gradientShift 10s ease infinite;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -289,14 +281,6 @@ html:not(.dark) .social-icon {
 
 .not-found.show {
   display: flex;
-}
-
-.not-found h1 {
-  animation: bounce 1s ease-in-out infinite;
-}
-
-.not-found p {
-  animation: pulse 2s ease-in-out infinite;
 }
 
 .not-found h1 {
@@ -329,7 +313,6 @@ html:not(.dark) .social-icon {
   color: #fff;
   transform: scale(1.12) translateY(-5px);
   box-shadow: 0 15px 40px rgba(67, 181, 129, 0.5);
-  animation: heartbeat 0.6s ease-in-out;
 }
 
 .not-found button:active {
@@ -405,7 +388,7 @@ html:not(.dark) .social-icon {
     opacity: 1;
     transform: translateX(0) rotateY(0);
   }
-}
+  }
 
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
@@ -419,11 +402,6 @@ html:not(.dark) .social-icon {
   100% { transform: rotate3d(0, 1, 0, 360deg); }
 }
 
-@keyframes wiggle {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(5deg); }
-  75% { transform: rotate(-5deg); }
-}
 
 @keyframes heartbeat {
   0%, 100% { transform: scale(1); }
@@ -455,7 +433,6 @@ body::before {
   width: 200%;
   height: 200%;
   background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
-  animation: rotate3d 30s linear infinite;
   pointer-events: none;
   z-index: 0;
 }
@@ -494,7 +471,6 @@ html:not(.dark) body::before {
 }
 
 .theme-toggle {
-  animation: iconFloat 3s ease-in-out infinite;
   cursor: pointer;
   font-size: 1.5rem;
   transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -556,7 +532,6 @@ html:not(.dark) body::before {
   margin: 0.2rem 0;
   opacity: 0;
   transform: translateX(-30px);
-  animation: slideFadeIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
 }
 
 @keyframes slideFadeIn {
@@ -598,7 +573,6 @@ html:not(.dark) .discord-status {
   transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   margin: clamp(0.25rem, 0.8vh, 0.6rem) 0;
   will-change: transform;
-  animation: badgePulse 4s ease-in-out infinite;
 }
 
 @keyframes badgePulse {
@@ -615,7 +589,6 @@ html:not(.dark) .discord-status {
 #lanyardBadge:hover {
   transform: translateY(-8px) scale(1.08) rotateZ(2deg);
   box-shadow: 0 15px 35px rgba(114, 137, 218, 0.5);
-  animation: wiggle 0.5s ease-in-out;
   filter: brightness(1.1);
 }
 
@@ -796,7 +769,6 @@ img {
   border-radius: 50%;
   width: 60px;
   height: 60px;
-  animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
