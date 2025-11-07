@@ -332,25 +332,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  const touchMeBtn = document.getElementById('touch-me-btn');
-  if (touchMeBtn) {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-    if (isMobile) {
-      touchMeBtn.addEventListener('click', () => {
-        window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
-      });
-    } else {
-      touchMeBtn.addEventListener('mouseover', () => {
-        const x = Math.random() * (window.innerWidth - touchMeBtn.offsetWidth);
-        const y = Math.random() * (window.innerHeight - touchMeBtn.offsetHeight);
-        touchMeBtn.style.left = `${x}px`;
-        touchMeBtn.style.top = `${y}px`;
-      });
-    }
-  }
-});
 
 // Anti-source reading measures. Note: These are not foolproof and can be bypassed by experienced users.
 document.addEventListener('contextmenu', event => event.preventDefault());

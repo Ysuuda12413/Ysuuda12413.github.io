@@ -10,7 +10,6 @@
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   will-change: transform;
-  animation: glassFloat 8s ease-in-out infinite;
   width: clamp(280px, 85vw, 900px);
   min-height: clamp(350px, 50vh, 650px);
   position: relative;
@@ -510,20 +509,6 @@ html:not(.dark) body::before {
   transform: scale(0.9) rotate(360deg);
 }
 
-.touch-me-btn {
-  position: absolute;
-  background-color: #ff0000;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 999;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
 
 .status-badge {
   padding: 0.5rem 1rem;
