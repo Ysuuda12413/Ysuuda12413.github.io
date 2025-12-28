@@ -14,15 +14,17 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ysuuda12413.github.io/">
   <meta property="og:title" content="DuyunDz - Minecraft Client Developer">
-  <meta property="og:description" content="Minecraft client enthusiast & tool developer from Vietnam">
-  
-  <!-- Twitter -->
+   <meta property="og:description" content="Minecraft client enthusiast & tool developer from Vietnam">
+   <meta property="og:image" content="https://ysuuda12413.github.io/img/avatar.jpg">
+   
+   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://ysuuda12413.github.io/">
   <meta property="twitter:title" content="DuyunDz - Minecraft Client Developer">
-  <meta property="twitter:description" content="Minecraft client enthusiast & tool developer from Vietnam">
-  
-  <!-- Preconnect for performance -->
+   <meta property="twitter:description" content="Minecraft client enthusiast & tool developer from Vietnam">
+   <meta property="twitter:image" content="https://ysuuda12413.github.io/img/avatar.jpg">
+   
+   <!-- Preconnect for performance -->
   <link rel="preconnect" href="https://cdn.tailwindcss.com">
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="preconnect" href="https://unpkg.com">
@@ -45,21 +47,21 @@
   </style>
   
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = { darkMode: 'class' };
-  </script>
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js" defer></script>
+
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
 </head>
-<body class="bg-gray-900 text-white transition-colors relative">
-  <div id="tsparticles" class="fixed inset-0 z-50 pointer-events-none"></div>
-  <div class="flex justify-end p-4 relative z-50">
-    <button id="toggleTheme" class="theme-toggle p-2 rounded-full bg-gray-300 dark:bg-gray-700 text-black dark:text-white transition" aria-label="Toggle Dark/Light Mode">🌙</button>
-  </div>
-  <div class="flex flex-col md:flex-row max-w-4xl mx-auto mt-4 glass-effect rounded-xl overflow-hidden relative z-50 m-3" data-aos="zoom-in" data-aos-duration="1500">
-    <aside class="p-3 md:p-4 flex flex-col items-center w-full md:w-1/3" data-aos="fade-right" data-aos-delay="300" data-aos-duration="1200">
-      <img src="./img/avatar.jpg" alt="DuyunDz Avatar - Phạm Hữu Duy Profile Picture" class="w-24 h-24 rounded-full mb-2 ring-1 ring-pink-400 transform hover:scale-110 transition duration-500 avatar-pulse" loading="lazy">
-      <h1 class="text-lg font-bold">Phạm Hữu Duy</h1>
+<body class="bg-gray-900 text-white transition-colors relative min-h-screen flex flex-col">
+  <div id="tsparticles" class="fixed inset-0 z-0 pointer-events-none"></div>
+  <div class="flex-1 flex items-center justify-center px-3 pb-6">
+
+   <div class="flex flex-col md:flex-row max-w-5xl lg:max-w-6xl mx-auto mt-4 glass-effect rounded-xl overflow-hidden relative z-10 m-3 w-full blur-backdrop" data-aos="zoom-in" data-aos-duration="1500">
+      <div class="chrome-orb -left-24 -top-24"></div>
+      <div class="metal-ring -right-40 bottom-[-8rem] hidden md:block"></div>
+      <aside class="p-3 md:p-4 flex flex-col items-center w-full md:w-1/3" data-aos="fade-right" data-aos-delay="300" data-aos-duration="1200">
+
+       <img src="./img/avatar.jpg" alt="DuyunDz Avatar - Phạm Hữu Duy Profile Picture" class="w-24 h-24 rounded-full mb-2 ring-2 ring-emerald-400/80 shadow-lg shadow-emerald-500/30 transform hover:scale-110 transition duration-500 avatar-pulse" loading="lazy">
+       <h1 class="text-lg font-bold">Phạm Hữu Duy</h1>
       <p class="text-gray-300 text-sm">@DuyunDz</p>
       <div class="discord-status" data-aos="fade-up" data-aos-delay="800">
         <a href="https://discord.com/users/1101376716670259210" rel="noopener noreferrer" target="_blank" aria-label="Discord Profile">
@@ -73,16 +75,34 @@
         <a href="https://github.com/Ysuuda12413" target="_blank" rel="noopener noreferrer" class="social-icon github" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
       </div>
     </aside>
-    <main class="flex-1 p-3 md:p-4" data-aos="fade-left" data-aos-delay="500" data-aos-duration="1200">
-      <h2 class="text-xl font-semibold mb-3">About Me</h2>
-      <div class="code-block" id="codeBlock" role="region" aria-label="Profile Code Block">
-        <div class="code-header">
-          <div class="code-dots">
-            <span class="dot red"></span>
-            <span class="dot yellow"></span>
-            <span class="dot green"></span>
+      <main class="flex-1 p-3 md:p-4" data-aos="fade-left" data-aos-delay="500" data-aos-duration="1200">
+       <h1 class="text-2xl font-semibold mb-2">Minecraft Client & Tool Developer · Phạm Hữu Duy</h1>
+       <div class="flex flex-wrap gap-2 mb-3 text-[11px] font-medium text-emerald-200/90">
+         <span class="px-2 py-1 rounded-full border border-emerald-400/60 bg-emerald-500/10 backdrop-blur-sm">Minecraft Client</span>
+         <span class="px-2 py-1 rounded-full border border-sky-400/60 bg-sky-500/10 backdrop-blur-sm">Tools & Scripts</span>
+         <span class="px-2 py-1 rounded-full border border-violet-400/60 bg-violet-500/10 backdrop-blur-sm">Reverse Engineering</span>
+         <span class="px-2 py-1 rounded-full border border-slate-400/60 bg-slate-500/10 backdrop-blur-sm">Performance Tuning</span>
+       </div>
+       <p class="text-sm text-gray-300 dark:text-gray-400 mb-4 max-w-xl">Mình tập trung xây các công cụ, script và client hỗ trợ trải nghiệm chơi Minecraft mượt, trực quan.</p>
+        <div class="code-block" id="codeBlock" role="region" aria-label="Profile Code Block">
+
+         <div class="code-header">
+           <div class="code-dots">
+             <span class="dot red"></span>
+             <span class="dot yellow"></span>
+             <span class="dot green"></span>
+           </div>
+           <div class="code-filename">profile.js</div>
+          <div class="code-actions" role="group" aria-label="Code Actions">
+            <button class="code-btn run-button reveal" type="button" onclick="runCode()" aria-label="Run code">
+              <i class="fas fa-play" aria-hidden="true"></i>
+              <span class="label">Run</span>
+            </button>
+            <button class="code-btn copy-button reveal" type="button" onclick="copyCode()" aria-label="Copy code">
+              <i class="far fa-copy" aria-hidden="true"></i>
+              <span class="label">Copy</span>
+            </button>
           </div>
-          <div class="code-filename">profile.js</div>
         </div>
         <pre id="codeContent" class="overflow-x-auto">
 <span class="token keyword">const</span> <span class="token property">profile</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
@@ -95,12 +115,11 @@
     <span class="token property">facebook</span><span class="token punctuation">:</span> <span class="token string">"facebook.com/profile.php?id=61556575490667"</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></pre>
-        <button class="run-button" onclick="runCode()"><i class="fas fa-play mr-1"></i> Run</button>
-        <button class="copy-button" onclick="copyCode()"><i class="far fa-copy mr-1"></i> Copy</button>
       </div>
       <p class="mt-4 text-xs text-gray-500 dark:text-gray-400">© 2025 DuyunDz • Built with Tailwind CSS & AOS</p>
     </main>
   </div>
+</div>
   <div id="notFound" class="not-found justify-center items-center flex-col text-center">
     <h1 class="text-6xl font-bold mb-4">404</h1>
     <p class="text-xl mb-8">Page not found</p>

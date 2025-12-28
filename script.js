@@ -1,14 +1,4 @@
-try {
-  if (localStorage.getItem('theme') === 'light') {
-    document.documentElement.classList.remove('dark');
-  } else {
-    document.documentElement.classList.add('dark');
-    localStorage.setItem('theme', 'dark');
-  }
-} catch (e) {
-  console.error('LocalStorage error:', e);
-  document.documentElement.classList.add('dark');
-}
+document.documentElement.classList.add('dark');
 
 function check404() {
   try {
@@ -66,6 +56,19 @@ const particleConfig = {
   detectRetina: true,
   fpsLimit: 30
 };
+
+// Tối ưu cho mọi kích thước màn hình: giảm particle trên mobile để mượt hơn
+(function applyParticleDensity() {
+  const w = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+  const density =
+    w < 480 ? { count: 14, linkDistance: 95, speed: 0.45 } :
+    w < 1024 ? { count: 20, linkDistance: 110, speed: 0.5 } :
+               { count: 28, linkDistance: 130, speed: 0.55 };
+
+  particleConfig.particles.number.value = density.count;
+  particleConfig.particles.links.distance = density.linkDistance;
+  particleConfig.particles.move.speed = density.speed;
+})();
 
 function runCode() {
   const consoleOutput = document.getElementById('consoleOutput');
@@ -231,13 +234,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       updateDiscordStatus();
       
-      const isDark = document.documentElement.classList.contains('dark');
-      const toggleBtn = document.getElementById('toggleTheme');
-      if (toggleBtn) toggleBtn.textContent = isDark ? '☀️' : '🌙';
-      
       const lanyardBadge = document.getElementById('lanyardBadge');
       if (lanyardBadge && lanyardBadge.src) {
-        const theme = isDark ? 'dark' : 'light';
+        const theme = 'dark';
         lanyardBadge.src = lanyardBadge.src.replace(/theme=(dark|light)/, `theme=${theme}`);
         lanyardBadge.onerror = () => console.error('Failed to load Discord badge');
       }
@@ -248,42 +247,62 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 window.addEventListener('popstate', check404);
 
-document.addEventListener('DOMContentLoaded', () => {
-  const toggleBtn = document.getElementById('toggleTheme');
-  if (toggleBtn) {
-    toggleBtn.addEventListener('click', function() {
-      try {
-        const html = document.documentElement;
-        const isDark = html.classList.toggle('dark');
-        try {
-          localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        } catch (e) {
-          console.error('LocalStorage error:', e);
-        }
-        this.textContent = isDark ? '☀️' : '🌙';
-        
-        if (typeof tsParticles !== 'undefined') {
-          const container = tsParticles.domItem(0);
-          if (container && container.options) {
-            const darkColors = ["#ffffff", "#00bfff", "#ff69b4"];
-            const lightColors = ["#1f2937", "#00bfff", "#ff69b4"];
-            container.options.particles.color.value = isDark ? darkColors : lightColors;
-            container.options.particles.links.color = isDark ? "#ffffff" : "#1f2937";
-            container.refresh();
-          }
-        }
-        
-        document.body.style.backgroundColor = isDark ? '#111827' : '#f3f4f6';
-        document.body.style.color = isDark ? '#ffffff' : '#111827';
-        
-        const lanyardBadge = document.getElementById('lanyardBadge');
-        if (lanyardBadge && lanyardBadge.src) {
-          const theme = isDark ? 'dark' : 'light';
-          lanyardBadge.src = lanyardBadge.src.replace(/theme=(dark|light)/, `theme=${theme}`);
-        }
-      } catch (e) {
-        console.error('Theme toggle error:', e);
-      }
+
+function setupReveal() {
+  // Fluent Reveal effect: cập nhật --reveal-x/--reveal-y theo con trỏ.
+  // Tối ưu: chỉ update phần tử đang hover, dùng requestAnimationFrame.
+  let active = null;
+  let raf = 0;
+  let lastEvent = null;
+
+  const setVars = (el, ev) => {
+    const rect = el.getBoundingClientRect();
+    const x = Math.max(0, Math.min(rect.width, ev.clientX - rect.left));
+    const y = Math.max(0, Math.min(rect.height, ev.clientY - rect.top));
+    el.style.setProperty('--reveal-x', `${x}px`);
+    el.style.setProperty('--reveal-y', `${y}px`);
+  };
+
+  document.addEventListener('pointerenter', (ev) => {
+    const el = ev.target && ev.target.closest ? ev.target.closest('.reveal') : null;
+    if (!el) return;
+    active = el;
+    el.style.setProperty('--reveal-opacity', '1');
+    setVars(el, ev);
+  }, true);
+
+  document.addEventListener('pointerleave', (ev) => {
+    const el = ev.target && ev.target.closest ? ev.target.closest('.reveal') : null;
+    if (!el) return;
+    el.style.setProperty('--reveal-opacity', '0');
+    if (active === el) active = null;
+  }, true);
+
+  document.addEventListener('pointermove', (ev) => {
+    if (!active) return;
+    lastEvent = ev;
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = 0;
+      if (active && lastEvent) setVars(active, lastEvent);
     });
-  }
+  }, { passive: true });
+
+  // Focus highlight cho keyboard
+  document.addEventListener('focusin', (ev) => {
+    const el = ev.target && ev.target.closest ? ev.target.closest('.reveal') : null;
+    if (!el) return;
+    el.style.setProperty('--reveal-opacity', '1');
+  });
+
+  document.addEventListener('focusout', (ev) => {
+    const el = ev.target && ev.target.closest ? ev.target.closest('.reveal') : null;
+    if (!el) return;
+    el.style.setProperty('--reveal-opacity', '0');
+  });
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  try { setupReveal(); } catch (e) { console.error('Reveal init error:', e); }
 });

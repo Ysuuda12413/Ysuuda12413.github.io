@@ -4,12 +4,37 @@
 }
 
 .glass-effect {
+  position: relative;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.85);
+  overflow: hidden;
   will-change: transform;
+}
+
+.glass-effect::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(56,189,248,0.12), transparent 55%),
+    radial-gradient(circle at 100% 20%, rgba(192,132,252,0.16), transparent 60%),
+    radial-gradient(circle at 0% 100%, rgba(45,212,191,0.16), transparent 55%);
+  opacity: 0.8;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.glass-effect::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-top: 1px solid rgba(148,163,184,0.55);
+  border-left: 1px solid rgba(148,163,184,0.35);
+  border-radius: inherit;
+  pointer-events: none;
 }
 
 html.dark .glass-effect {
@@ -91,10 +116,10 @@ html:not(.dark) .code-block pre {
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(90deg, rgba(15,23,42,0.9), rgba(30,64,175,0.55));
+  border-bottom: 1px solid rgba(148,163,184,0.45);
   border-radius: 8px 8px 0 0;
-  animation: headerShimmer 8s linear infinite;
+  animation: headerShimmer 12s linear infinite;
 }
 
 html:not(.dark) .code-header {
@@ -490,25 +515,6 @@ html:not(.dark) .token.class-name {
   50% { opacity: 0.6; }
 }
 
-.code-block .copy-button,
-.run-button {
-  position: absolute;
-  top: 52px;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  z-index: 10;
-  transition: all 0.3s ease;
-  width: 70px;
-  height: 32px;
-  text-align: center;
-  font-family: inherit;
-  cursor: pointer;
-  border: 1px solid transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-}
 
 .code-block .copy-button {
   right: 8px;
@@ -620,18 +626,10 @@ html:not(.dark) .run-button:hover {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(15,23,42,0.8);
+  border: 1px solid rgba(148,163,184,0.38);
 }
 
-html.dark .social-icon {
-  background: rgba(31, 41, 55, 0.7);
-  color: #fff;
-}
-
-html:not(.dark) .social-icon {
-  background: rgba(229, 231, 235, 0.7);
-  color: #000;
-}
 
 .social-icon {
   will-change: transform;
@@ -1002,15 +1000,86 @@ img {
 
 /* Mobile landscape */
 @media (max-width: 700px) and (orientation: landscape) {
-  body {
-    font-size: 14px;
-    padding: 0;
+body {
+	font-size: 14px;
+	padding: 0;
+}
+	  .glass-effect {
+	    margin: 0.5rem;
+	    border-radius: 0.7rem;
+	    box-shadow: 0 2px 8px 0 rgba(31,38,135,0.18);
+	  }
+
+  body{
+    background: radial-gradient(circle at 0% 0%, #020617 0, #020617 25%, #020617 60%, #000 100%);
   }
-  .glass-effect {
-    margin: 0.5rem;
-    border-radius: 0.7rem;
-    box-shadow: 0 2px 8px 0 rgba(31,38,135,0.18);
+
+.chrome-orb{
+  position: absolute;
+  width: 24rem;
+  height: 24rem;
+  border-radius: 9999px;
+  mix-blend-mode: screen;
+  opacity: 0.8;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9) 0%, rgba(150,150,150,0.5) 20%, rgba(50,50,50,0.8) 50%, rgba(0,0,0,1) 100%);
+  box-shadow:
+    inset -20px -20px 50px rgba(255,255,255,0.2),
+    0 0 50px rgba(255,255,255,0.1);
+  filter: blur(2px);
+}
+
+@media (min-width: 768px){
+  .chrome-orb{
+    width: 26rem;
+    height: 26rem;
   }
+}
+
+.metal-ring{
+  position: absolute;
+  width: 37.5rem; /* ~600px */
+  height: 37.5rem;
+  border-radius: 9999px;
+  border-width: 3.75rem; /* ~60px */
+  border-style: solid;
+  border-color: #333;
+  box-shadow:
+    inset 10px 10px 40px rgba(255,255,255,0.4),
+    inset -10px -10px 40px rgba(0,0,0,0.8),
+    10px 10px 40px rgba(0,0,0,0.5);
+  filter: blur(4px);
+  opacity: 0.55;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+  .avatar-pulse{
+    box-shadow: 0 0 0 0 rgba(52,211,153,0.55);
+    animation: avatarPulse 2.4s ease-out infinite;
+  }
+
+  @keyframes avatarPulse{
+    0%{ box-shadow:0 0 0 0 rgba(52,211,153,0.6); transform:translateZ(0); }
+    70%{ box-shadow:0 0 0 18px rgba(52,211,153,0); }
+    100%{ box-shadow:0 0 0 0 rgba(52,211,153,0); }
+  }
+
+  .glass-effect{
+    background: linear-gradient(135deg, rgba(15,23,42,0.94), rgba(30,64,175,0.8));
+    border-color: rgba(148,163,184,0.45);
+  }
+
+  html:not(.dark) .glass-effect{
+    background: linear-gradient(145deg, rgba(15,23,42,0.08), rgba(15,23,42,0.18));
+    border-color: rgba(15,23,42,0.12);
+  }
+
+  .social-icon{
+    border: 1px solid rgba(148,163,184,0.35);
+  }
+
   .code-block {
     font-size: 0.8rem;
     min-height: 70px;
@@ -1062,3 +1131,134 @@ img {
   }
 }
 
+
+
+
+/* =========================================================
+   Fluent + Glass: Centered Code Header + Responsive Actions
+   (Fix "chưa canh giữa")
+   ========================================================= */
+
+.code-header{
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  /* giữ "bar" giống cửa sổ macOS */
+  padding: 0.55rem 0.75rem;
+}
+
+.code-filename{
+  justify-self: center;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  opacity: 0.92;
+  user-select: none;
+}
+
+/* vùng nút hành động bên phải để title thật sự ở giữa */
+.code-actions{
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* reset absolute button cũ (tránh lệch/không canh giữa) */
+.code-header .run-button,
+.code-header .code-block .copy-button,
+.code-header .copy-button{
+  position: static;
+  top: auto;
+  right: auto;
+  left: auto;
+  transform: none;
+  animation: none;
+}
+
+/* chuẩn hoá nút theo Fluent/Glass */
+.code-btn{
+  position: relative;
+  height: 32px;
+  padding: 0 10px;
+  width: auto;
+  border-radius: 10px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+
+  backdrop-filter: blur(10px) saturate(1.15);
+  -webkit-backdrop-filter: blur(10px) saturate(1.15);
+
+  border: 1px solid rgba(148,163,184,0.45);
+  box-shadow: 0 6px 18px rgba(15,23,42,0.75);
+
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.code-btn.reveal::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--reveal-x, 50%) var(--reveal-y, 50%), rgba(148,163,184,0.7), transparent 55%);
+  mix-blend-mode: screen;
+  opacity: var(--reveal-opacity, 0);
+  pointer-events: none;
+  transition: opacity 120ms ease-out;
+}
+
+.code-btn:focus-visible{
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(86,156,214,0.35),
+    0 6px 18px rgba(0,0,0,0.18);
+}
+
+/* hover/press micro-interaction (Fluent-ish) */
+.code-btn:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.22);
+  border-color: rgba(255,255,255,0.24);
+}
+
+.code-btn:active{
+  transform: translateY(0px) scale(0.99);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+}
+
+.code-btn .label{
+  font-size: 0.85rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* thu gọn label trên màn hình rất nhỏ */
+@media (max-width: 420px){
+  .code-btn{
+    width: 36px;
+    padding: 0;
+    border-radius: 12px;
+  }
+  .code-btn .label{
+    display: none;
+  }
+}
+
+/* nới container cho desktop lớn (đỡ "lọt thỏm") */
+@media (min-width: 1024px){
+  .glass-effect{
+    max-width: 72rem;
+  }
+}
+
+/* tắt motion nếu user yêu cầu */
+@media (prefers-reduced-motion: reduce){
+  .code-btn,
+  .glass-effect{
+    transition: none !important;
+  }
+}
