@@ -748,15 +748,16 @@ html:not(.dark) .touch-me-btn,
   right: 0;
   max-height: 180px;
   overflow-y: auto;
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(15, 23, 42, 0.72);
   color: #43b581;
-  padding: 1rem;
+  padding: 1rem 1.25rem;
   font-family: 'Consolas', monospace;
   transform: translateY(100%);
   transition: transform 0.3s;
   z-index: 1000;
-  backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border-top: 1px solid rgba(148, 163, 184, 0.45);
 }
 
 .console-output.show {
