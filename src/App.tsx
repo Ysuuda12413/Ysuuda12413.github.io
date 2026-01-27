@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Background } from './components/Background';
 import { Sidebar } from './components/Sidebar';
 import { CodeBlock } from './components/CodeBlock';
